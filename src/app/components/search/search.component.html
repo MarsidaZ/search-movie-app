@@ -1,0 +1,29 @@
+<div class="search-container">
+  <h2>Movie Search</h2>
+  <input
+    type="text"
+    [(ngModel)]="query"
+    (input)="searchMovies()"
+    placeholder="Search for a movie..."
+    class="search-input"
+  />
+  <div *ngIf="loading" class="loading">Loading...</div>
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+  <div *ngIf="movies.length > 0" class="movie-list">
+    <div *ngFor="let movie of movies" class="movie-item">
+      <a [href]="'https://www.imdb.com/title/' + movie.imdbID" target="_blank">
+        <img
+          [src]="
+            movie.Poster !== 'N/A'
+              ? movie.Poster
+              : 'https://via.placeholder.com/150'
+          "
+          [alt]="movie.Title"
+          class="movie-poster"
+        />
+      </a>
+      <p>{{ movie.Title }}</p>
+    </div>
+  </div>
+</div>
