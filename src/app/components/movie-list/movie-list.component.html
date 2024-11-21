@@ -1,0 +1,16 @@
+<div *ngIf="topMovies.length > 0" class="movie-list">
+  <div *ngFor="let movie of topMovies" class="movie-item">
+    <a [href]="'https://www.imdb.com/title/' + movie.imdbID" target="_blank">
+      <img
+        [src]="
+          movie.Poster !== 'N/A'
+            ? movie.Poster
+            : 'https://via.placeholder.com/150'
+        "
+        [alt]="movie.Title"
+        class="movie-poster"
+      />
+    </a>
+    <p>{{ movie.Title }}</p>
+  </div>
+</div>

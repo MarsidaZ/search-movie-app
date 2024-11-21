@@ -24,9 +24,18 @@ export class MovieService {
       .pipe(catchError((error) => this.handleError(error)));
   }
 
+  setSearchResults(movies: Movie[]) {
+    this.moviesSubject.next(movies);
+  }
+
   private handleError(error: any): Observable<MovieSearchResponse> {
     console.error('Error fetching movies:', error);
     this.moviesSubject.next([]);
-    return of({ Search: [], totalResults: '0', Response: 'False' });
+    return of({
+      Search: [],
+      totalResults: '0',
+      Response: 'False',
+      Error: error,
+    });
   }
 }

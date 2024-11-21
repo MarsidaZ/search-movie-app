@@ -19,16 +19,17 @@ export class SearchComponent {
     if (this.query.trim()) {
       this.loading = true;
       this.errorMessage = '';
-      this.movieService
-        .searchMovies(this.query)
-        .subscribe((response: MovieSearchResponse) => {
+      this.movieService.searchMovies(this.query).subscribe({
+        next: (response: MovieSearchResponse) => {
           this.loading = false;
           if (response.Response === 'True') {
-            this.movies = response.Search.slice(0, 3);
+            this.movieService.setSearchResults(response.Search); // Push movies to service
           } else {
-            this.errorMessage = 'No results found';
+            this.errorMessage = response.Error;
+            this.movieService.setSearchResults([]);
           }
-        });
+        },
+      });
     }
   }
 }
